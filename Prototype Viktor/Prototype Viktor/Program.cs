@@ -225,11 +225,25 @@ namespace Protype_Viktor
             Gapcloser.OnGapcloser += Gapcloser_OnGapcloser;
             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast;
             Drawing.OnDraw += Drawing_OnDraw;
+            Obj_AI_Base.OnBasicAttack += Obj_AI_Base_OnBasicAttack;
 
 
             Chat.Print("Prototype Viktor " + version + " Loaded!");
             Console.WriteLine("Prototype Viktor " + version + " Loaded!");
 
+        }
+        
+        private static void Obj_AI_Base_OnBasicAttack(Obj_AI_Base Sender, GameObjectProcessSpellCastEventArgs args)
+        {
+            if (Sender == null || !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LastHit))
+            {
+               return;
+            }
+            if (Sender.IsEnemy && Sender.Type == GameObjectType.AIHeroClient && Sender.Distance(_Player) <=  EMaxRange)
+            {
+                Harass();
+
+            } 
         }
 
         private static void Game_OnTick(EventArgs args)
