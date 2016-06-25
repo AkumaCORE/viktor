@@ -16,6 +16,7 @@ namespace Protype_Viktor
     class Program
     {
         #region Variables
+        public static AIHeroClient CurrentTarget;
         public static AIHeroClient _Player { get { return ObjectManager.Player; } }
         private static List<string> DangerousEnemies = new List<string>() { "Amumu", "Lissandra", "Thresh", "Blitzcrank", "MissFortune" };
         private static Spell.Targeted Q, Ignite;
@@ -226,6 +227,7 @@ namespace Protype_Viktor
             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast;
             Drawing.OnDraw += Drawing_OnDraw;
             Obj_AI_Base.OnBasicAttack += Obj_AI_Base_OnBasicAttack;
+             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast2;
 
 
             Chat.Print("Prototype Viktor " + version + " Loaded!");
@@ -233,15 +235,37 @@ namespace Protype_Viktor
 
         }
         
-        private static void Obj_AI_Base_OnBasicAttack(Obj_AI_Base Sender, GameObjectProcessSpellCastEventArgs args)
+        private static void Obj_AI_Base_OnProcessSpellCast2(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
-            if (Sender == null || !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LastHit))
+            if (sender == null || !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Harass))
             {
                return;
             }
-            if (Sender.IsEnemy && Sender.Type == GameObjectType.AIHeroClient && Sender.Distance(_Player) <=  EMaxRange)
+            CurrentTarget = TargetSelector.GetTarget(EMaxRange, DamageType.Magical);
+            if (sender == CurrentTarget && !sender.IsDashing() && sender.Type == GameObjectType.AIHeroClient && sender.IsValidTarget(EMaxRange) && E.IsReady() && sender.IsEnemy)
             {
-                Harass();
+                
+                {
+                    CastE();
+                }
+
+            } 
+        } 
+        private static void Obj_AI_Base_OnBasicAttack(Obj_AI_Base Sender, GameObjectProcessSpellCastEventArgs args)
+        {
+            if (Sender == null || !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Harass))
+            {
+               return;
+            }
+            CurrentTarget = TargetSelector.GetTarget(EMaxRange, DamageType.Magical);
+            if (sender == CurrentTarget && Sender.IsEnemy && Sender.Type == GameObjectType.AIHeroClient && Sender.Distance(_Player) <=  EMaxRange)
+            {
+                CastE();
+
+            }
+            if (sender == CurrentTarget && Sender.IsEnemy && Sender.Type == GameObjectType.AIHeroClient && Sender.Distance(_Player) <=  Q.Range)
+            {
+                CastE();
 
             } 
         }
