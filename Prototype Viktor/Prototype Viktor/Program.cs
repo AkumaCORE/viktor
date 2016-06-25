@@ -263,7 +263,7 @@ namespace Protype_Viktor
                 CastE();
 
             }
-            if (args.Target == Player && Sender == CurrentTarget && Sender.IsEnemy && Sender.Type == GameObjectType.AIHeroClient && Sender.Distance(_Player) <=  EMaxRange)
+            if (args.Target == _Player && Sender == CurrentTarget && Sender.IsEnemy && Sender.Type == GameObjectType.AIHeroClient && Sender.Distance(_Player) <=  EMaxRange)
             {
                 CastE();
 
