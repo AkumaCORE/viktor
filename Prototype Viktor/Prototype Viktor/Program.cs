@@ -685,7 +685,7 @@ namespace Protype_Viktor
                 {
                     E.SourcePosition = target.ServerPosition;
                     var prediction = E.GetPrediction(target);
-                    if (prediction.HitChance >= PredictionRate)
+                    if (prediction.HitChance >= HitChance.Low)
                     {
                         Player.CastSpell(SpellSlot.E, prediction.UnitPosition, target.ServerPosition);
                     }
@@ -696,7 +696,7 @@ namespace Protype_Viktor
 
                     var prediction = E.GetPrediction(target);
                     E.SourcePosition = startPos;
-                    if (prediction.HitChance >= PredictionRate)
+                    if (prediction.HitChance >= HitChance.Low)
                     {
                         Player.CastSpell(SpellSlot.E, prediction.UnitPosition, startPos);
                     }
