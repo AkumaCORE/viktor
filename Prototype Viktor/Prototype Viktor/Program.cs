@@ -676,6 +676,33 @@ namespace Protype_Viktor
             }
         }
 
+        private static void CastEE()
+        {
+            var target = TargetSelector.GetTarget(EMaxRange, DamageType.Magical);
+            if (target != null && target.IsEnemy && target.IsVisible)
+            {
+                if (_Player.ServerPosition.Distance(target.ServerPosition) < E.Range)
+                {
+                    E.SourcePosition = target.ServerPosition;
+                    var prediction = E.GetPrediction(target);
+                    if (prediction.HitChance >= PredictionRate)
+                    {
+                        Player.CastSpell(SpellSlot.E, prediction.UnitPosition, target.ServerPosition);
+                    }
+                }
+                else if (_Player.ServerPosition.Distance(target.ServerPosition) < EMaxRange)
+                {
+                    startPos = _Player.ServerPosition.To2D().Extend(target.ServerPosition, E.Range).To3D();
+
+                    var prediction = E.GetPrediction(target);
+                    E.SourcePosition = startPos;
+                    if (prediction.HitChance >= PredictionRate)
+                    {
+                        Player.CastSpell(SpellSlot.E, prediction.UnitPosition, startPos);
+                    }
+                }
+            }
+        }
         private static void CastE()
         {
             var target = TargetSelector.GetTarget(EMaxRange, DamageType.Magical);
