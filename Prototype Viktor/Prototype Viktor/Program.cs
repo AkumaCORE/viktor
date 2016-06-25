@@ -237,19 +237,7 @@ namespace Protype_Viktor
         
         private static void Obj_AI_Base_OnProcessSpellCast2(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
-            if (sender == null || !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Harass))
-            {
-               return;
-            }
-            CurrentTarget = TargetSelector.GetTarget(EMaxRange, DamageType.Magical);
-            if (sender == CurrentTarget && !sender.IsDashing() && sender.Type == GameObjectType.AIHeroClient && Sender.Distance(_Player) <=  EMaxRange && E.IsReady() && sender.IsEnemy)
-            {
-                
-                {
-                    CastE();
-                }
 
-            } 
         } 
         private static void Obj_AI_Base_OnBasicAttack(Obj_AI_Base Sender, GameObjectProcessSpellCastEventArgs args)
         {
