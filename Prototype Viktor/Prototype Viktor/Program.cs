@@ -248,6 +248,11 @@ namespace Protype_Viktor
                 CastE();
 
             }
+            CurrentTarget = TargetSelector.GetTarget(610, DamageType.Magical);
+            if (args.Target == _Player && Sender == CurrentTarget && Sender.IsEnemy && Sender.Type == GameObjectType.AIHeroClient && Sender.Distance(_Player) <=  610)
+            {
+                Q.Cast(Sender);
+            }
 
         } 
         private static void Obj_AI_Base_OnBasicAttack(Obj_AI_Base Sender, GameObjectProcessSpellCastEventArgs args)
