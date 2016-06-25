@@ -245,7 +245,7 @@ namespace Protype_Viktor
             CurrentTarget = TargetSelector.GetTarget(1225, DamageType.Magical);
             if (Sender == CurrentTarget && Sender.IsEnemy && Sender.Type == GameObjectType.AIHeroClient && Sender.Distance(_Player) <=  EMaxRange)
             {
-                CastE();
+                CastEE();
 
             }
             CurrentTarget = TargetSelector.GetTarget(610, DamageType.Magical);
@@ -265,7 +265,7 @@ namespace Protype_Viktor
             CurrentTarget = TargetSelector.GetTarget(1225, DamageType.Magical);
             if (Sender == CurrentTarget && Sender.IsEnemy && Sender.Type == GameObjectType.AIHeroClient && Sender.Distance(_Player) <=  EMaxRange)
             {
-                CastE();
+                CastEE();
             }
             CurrentTarget = TargetSelector.GetTarget(610, DamageType.Magical);
             if (args.Target == _Player && Sender == CurrentTarget && Sender.IsEnemy && Sender.Type == GameObjectType.AIHeroClient && Sender.Distance(_Player) <=  EMaxRange)
