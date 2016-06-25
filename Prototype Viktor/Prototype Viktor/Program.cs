@@ -227,7 +227,7 @@ namespace Protype_Viktor
             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast;
             Drawing.OnDraw += Drawing_OnDraw;
             Obj_AI_Base.OnBasicAttack += Obj_AI_Base_OnBasicAttack;
-             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast2;
+            Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast2;
 
 
             Chat.Print("Prototype Viktor " + version + " Loaded!");
@@ -242,7 +242,7 @@ namespace Protype_Viktor
                return;
             }
             CurrentTarget = TargetSelector.GetTarget(EMaxRange, DamageType.Magical);
-            if (sender == CurrentTarget && !sender.IsDashing() && sender.Type == GameObjectType.AIHeroClient && sender.IsValidTarget(EMaxRange) && E.IsReady() && sender.IsEnemy)
+            if (sender == CurrentTarget && !sender.IsDashing() && sender.Type == GameObjectType.AIHeroClient && Sender.Distance(_Player) <=  EMaxRange && E.IsReady() && sender.IsEnemy)
             {
                 
                 {
@@ -263,11 +263,7 @@ namespace Protype_Viktor
                 CastE();
 
             }
-            if (sender == CurrentTarget && Sender.IsEnemy && Sender.Type == GameObjectType.AIHeroClient && Sender.Distance(_Player) <=  Q.Range)
-            {
-                CastE();
 
-            } 
         }
 
         private static void Game_OnTick(EventArgs args)
