@@ -235,8 +235,19 @@ namespace Protype_Viktor
 
         }
         
-        private static void Obj_AI_Base_OnProcessSpellCast2(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
+        private static void Obj_AI_Base_OnProcessSpellCast2(Obj_AI_Base Sender, GameObjectProcessSpellCastEventArgs args)
         {
+            if (Sender == null || !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Harass))
+            {
+               return;
+            }
+
+            CurrentTarget = TargetSelector.GetTarget(1225, DamageType.Magical);
+            if (Sender == CurrentTarget && Sender.IsEnemy && Sender.Type == GameObjectType.AIHeroClient && Sender.Distance(_Player) <=  EMaxRange)
+            {
+                CastE();
+
+            }
 
         } 
         private static void Obj_AI_Base_OnBasicAttack(Obj_AI_Base Sender, GameObjectProcessSpellCastEventArgs args)
@@ -252,6 +263,12 @@ namespace Protype_Viktor
                 CastE();
 
             }
+            if (args.Target == Player && Sender == CurrentTarget && Sender.IsEnemy && Sender.Type == GameObjectType.AIHeroClient && Sender.Distance(_Player) <=  EMaxRange)
+            {
+                CastE();
+
+            }
+
 
         }
 
